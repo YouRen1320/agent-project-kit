@@ -20,6 +20,7 @@ All notable changes are recorded here. Versions follow semantic versioning.
 - A local publication-readiness gate for maintainer, Git, version, and reporting prerequisites.
 - Monthly dependency updates for pinned GitHub Actions and a bounded CI timeout.
 - Explicit CI provisioning for the documented ripgrep validation dependency.
+- Node.js 24-based pinned GitHub Actions for warning-free validation runs.
 - Open-source onboarding, contribution, conduct, security, and upgrade documentation.
 
 ### Security
