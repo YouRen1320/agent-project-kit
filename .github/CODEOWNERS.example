@@ -1,0 +1,6 @@
+# Copy this file to CODEOWNERS after replacing the placeholder with a real GitHub owner.
+AGENTS.md @YOUR_GITHUB_HANDLE
+CLAUDE.md @YOUR_GITHUB_HANDLE
+.agents/ @YOUR_GITHUB_HANDLE
+.claude/ @YOUR_GITHUB_HANDLE
+.github/workflows/ @YOUR_GITHUB_HANDLE

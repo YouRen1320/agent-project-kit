@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Bootstrap"
+  short_description: "Configure Agent Project Kit for a repository"
+  default_prompt: "Use $project-bootstrap to configure this repository's agent guidance from verified project evidence."

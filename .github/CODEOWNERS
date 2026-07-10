@@ -1,0 +1,11 @@
+# Replace these owners when a repository is created from the template.
+* @YouRen1320
+
+# Agent behavior and validation are trusted paths that require maintainer review.
+/AGENTS.md @YouRen1320
+/CLAUDE.md @YouRen1320
+/.agents/ @YouRen1320
+/.claude/ @YouRen1320
+/.github/workflows/ @YouRen1320
+/scripts/ @YouRen1320
+/tests/ @YouRen1320

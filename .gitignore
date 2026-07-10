@@ -1,0 +1,37 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Secrets and machine-local configuration
+.env
+.env.*
+!.env.example
+CLAUDE.local.md
+.claude/settings.local.json
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Agent-local material: keep only the safety README tracked
+.agents/local/*
+!.agents/local/README.md
+**/db-backups/
+
+# Dumps, logs, temporary artifacts, and ad-hoc backups
+*.dump
+*.log
+*.bak
+*.backup
+*.tmp
+*.temp
+
+# Tool caches
+.cache/
+.pytest_cache/
+__pycache__/

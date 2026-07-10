@@ -1,0 +1,27 @@
+name: Feature request
+description: Propose a reusable workflow, runbook, template, or compatibility improvement.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What reusable problem should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: users
+    attributes:
+      label: Intended users and agents
+      description: Explain whether this is for people, Codex, Claude Code, or several audiences.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety and compatibility impact

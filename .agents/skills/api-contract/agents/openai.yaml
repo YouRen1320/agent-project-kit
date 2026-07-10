@@ -1,0 +1,4 @@
+interface:
+  display_name: "API Contract Review"
+  short_description: "Review producer and consumer API alignment"
+  default_prompt: "Use $api-contract to review this API change across every producer and consumer."
