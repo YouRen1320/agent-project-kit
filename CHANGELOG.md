@@ -19,6 +19,7 @@ All notable changes are recorded here. Versions follow semantic versioning.
 - Deterministic validation for Codex and Claude instruction imports, skill metadata, and shared references.
 - A local publication-readiness gate for maintainer, Git, version, and reporting prerequisites.
 - Monthly dependency updates for pinned GitHub Actions and a bounded CI timeout.
+- Explicit CI provisioning for the documented ripgrep validation dependency.
 - Open-source onboarding, contribution, conduct, security, and upgrade documentation.
 
 ### Security
