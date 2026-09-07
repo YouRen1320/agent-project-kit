@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -46,6 +47,31 @@ class ValidatorTests(unittest.TestCase):
     def test_complete_template_validation_passes(self) -> None:
         result = self.run_command("./scripts/validate.sh")
         self.assertEqual(result.returncode, 0, result.stdout)
+
+    def test_existing_project_adoption_preserves_original_rules_and_validates(self) -> None:
+        original_rule = "- Use pnpm and preserve the existing lockfile."
+        agents = self.repo / "AGENTS.md"
+        agents.write_text(
+            agents.read_text(encoding="utf-8")
+            + "\n## Existing Project Rules\n\n"
+            + original_rule
+            + "\n",
+            encoding="utf-8",
+        )
+
+        # 真实接入应依据仓库证据填写项目事实；这里使用脱敏值，只验证接入后的结构与门禁。
+        for profile in (self.repo / ".agents" / "project").glob("*.md"):
+            text = profile.read_text(encoding="utf-8")
+            profile.write_text(
+                re.sub(r"<[A-Z][A-Z0-9_]*>", "fixture-value", text),
+                encoding="utf-8",
+            )
+
+        profile_result = self.run_command("./scripts/validate-project-profile.sh")
+        self.assertEqual(profile_result.returncode, 0, profile_result.stdout)
+        validation_result = self.run_command("./scripts/validate.sh")
+        self.assertEqual(validation_result.returncode, 0, validation_result.stdout)
+        self.assertIn(original_rule, agents.read_text(encoding="utf-8"))
 
     def test_project_profile_rejects_template_placeholders(self) -> None:
         overview = self.repo / ".agents" / "project" / "overview.md"

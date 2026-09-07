@@ -1,113 +1,154 @@
 # Agent Project Kit
 
-[中文说明](README.zh-CN.md)
+[English README](README.en.md)
 
-Agent Project Kit is a repository-local operating guide for people, Codex, and Claude Code. It provides durable project instructions, decision gates, reusable workflows, safety-oriented runbooks, report templates, and cross-agent skills without embedding private project data.
+Agent Project Kit 是一套可以放进软件项目仓库的协作与交付规范，让人类、Codex 和 Claude Code 在开始工作前理解同一套项目边界、风险门禁和验证标准。
 
-Current version: **0.1.0**
+当前版本：**0.1.0**
 
-## What It Solves
+> [!IMPORTANT]
+> 这是模板仓库，不是已经配置好的产品仓库。`.agents/project/` 中的大写尖括号内容是必须替换的占位符，不代表真实团队、环境、接口或发布承诺。
 
-- Gives contributors one clear place to learn how a project works.
-- Routes coding agents to the right workflow before they edit or operate systems.
-- Requires option review for architecture, contracts, data models, and destructive changes.
-- Separates reusable policy, project facts, and machine-local private material.
-- Keeps Codex and Claude Code aligned through separate entry points and one authoritative procedure library.
+## 先判断是否适合
 
-## Quick Start
+| 你的需求 | 推荐选择 | 原因 |
+| --- | --- | --- |
+| 需要项目事实、变更门禁、评审流程、数据与部署运行手册 | **Agent Project Kit** | 提供完整的仓库级协作与交付指南 |
+| 只想统一规则、长期记忆和每日记录 | [Agent Memory Starter](https://github.com/YouRen1320/agent-memory-starter) | 更轻量，不引入完整交付流程 |
+| 只需增加一两条项目约定 | 直接维护现有 `AGENTS.md` | 不必为简单需求复制整套模板 |
 
-### New project
+两套模板可以组合使用，但职责应分开：Kit 管“怎样安全地完成工作”，Memory Starter 管“哪些稳定事实和历史值得记住”。
 
-1. Create a repository from this GitHub template.
-2. Invoke `$project-bootstrap` in Codex or `/project-bootstrap` in Claude Code, then replace the placeholders under [`.agents/project/`](.agents/project/) using repository evidence.
-3. Review [`AGENTS.md`](AGENTS.md) and keep only rules that should apply to every task.
-4. Replace the generated project's README with its actual product documentation while retaining a link to the agent guidance.
-5. Run `./scripts/validate-project-profile.sh`, then `./scripts/validate.sh`.
+## 采用速查
 
-See [Getting started](docs/getting-started.md).
+| 场景 | 何时使用 | 如何开始 | 必须修改 | 完成标志 |
+| --- | --- | --- | --- | --- |
+| 新项目 | 尚未建立项目规则 | 使用 GitHub 的 “Use this template” | 产品 README、六份项目资料、责任人、安全与发布入口 | 项目资料校验和整套校验均通过 |
+| 已有项目且已有规则 | 需要补齐流程，又不能丢失现有约定 | 先盘点，再手工合并入口文件 | 冲突规则、项目资料、真实命令和责任人 | 原规则仍保留，双 Agent 入口和项目命令通过 |
+| 已有项目但没有规则 | 希望建立完整交付边界 | 复制通用核心，再按证据填写资料 | 项目资料、适用工作流和根路由 | 没有占位符，也没有虚构的环境与命令 |
+| 只试用 | 尚未决定长期采用 | 在临时分支或示例仓库演练 | 仅填写脱敏样例，不接生产凭据 | 能明确收益与额外维护成本后再决定 |
 
-### Existing project
+## 设计目标
 
-Do not overwrite existing agent instructions. Invoke `$project-bootstrap` in Codex or `/project-bootstrap` in Claude Code, merge the kit deliberately, preserve project-specific rules, and validate the combined result. See [Adopting the kit in an existing project](docs/existing-project.md).
+- 新项目可以从模板快速建立协作规范。
+- 已有项目可以按模块接入，而不覆盖现有规则。
+- 人类通过 README 理解如何使用和维护。
+- Codex 通过 `AGENTS.md` 和 `.agents/skills/` 自动发现规则。
+- Claude Code 通过 `CLAUDE.md` 和 `.claude/skills/` 加载同一套规则。
+- 架构、API、数据模型、跨组件和破坏性变更必须先比较方案、确认决策和完成标准。
+- 数据库、部署和生产回滚必须先确认环境、备份、验证与回滚。
+- 交付必须区分已验证、未验证、兼容性妥协和故意未做事项。
 
-## How Agents Discover It
+## 明确非目标
 
-- **Codex** reads the repository `AGENTS.md` and discovers repository skills under `.agents/skills/`.
-- **Claude Code** reads `CLAUDE.md`; this kit imports `@AGENTS.md` and exposes matching project skills under `.claude/skills/`.
-- Detailed procedures remain under `.agents/` so the two entry points do not duplicate policy.
+- 本仓库不保存任何真实项目的密钥、生产地址、数据库备份或个人数据。
+- 本仓库不替代密码管理器、基础设施配置系统或发布平台。
+- 本仓库不假设某一种编程语言、框架、分支模型或云厂商。
+- 0.1.x 暂不提供自动升级器，也不自动合并已有项目的规则文件。
 
-See [How agent loading works](docs/how-agents-load-rules.md).
+## 新项目使用方式
 
-## Included Skills
+1. 在 GitHub 上将本仓库设置为 Template repository。
+2. 使用 “Use this template” 创建新仓库。
+3. 在 Codex 中调用 `$project-bootstrap`，或在 Claude Code 中调用 `/project-bootstrap`，根据仓库证据填写 `.agents/project/` 下的项目资料、仓库清单、命令、环境、API 约定和责任人。
+4. 删除不适用的工作流，但不要保留空洞或错误的占位内容。
+5. 根据项目真实情况调整根 `AGENTS.md`，保持其简短。
+6. 将项目自己的产品说明写入 README，并保留本规范的入口链接。
+7. 先执行 `./scripts/validate-project-profile.sh`，确认项目资料没有遗留占位符，再执行 `./scripts/validate.sh`。
+8. 让 Codex 列出已加载的规则并调用 `$api-contract`；在 Claude Code 中用 `/memory` 检查规则并调用 `/api-contract`，确认双端入口有效。
 
-| Skill | Codex | Claude Code | Purpose |
+完整步骤见 [新项目入门](docs/getting-started.md)。
+
+## 已有项目接入方式
+
+不要直接覆盖已有的 `AGENTS.md`、`CLAUDE.md`、`.agents/` 或 `.claude/`。
+
+先在 Codex 中调用 `$project-bootstrap`，或在 Claude Code 中调用 `/project-bootstrap`，让 Agent 盘点现有规则和仓库证据。
+
+推荐顺序：
+
+1. 备份并盘点当前规则。
+2. 复制通用工作流、运行手册和模板。
+3. 人工合并根路由文件。
+4. 将真实项目事实填入 `.agents/project/`。
+5. 解决重复或冲突规则，明确哪一份是权威来源。
+6. 验证两个 agent 的加载结果。
+
+详见 [已有项目接入](docs/existing-project.md) 和[中文增量接入示例](examples/existing-project-incremental/README.md)。
+
+## 三层信息模型
+
+| 层级 | 内容 | 是否共享 |
+| --- | --- | --- |
+| 通用核心 | 工作流、运行手册、模板、安全门禁 | 是 |
+| 项目资料 | 组件、命令、环境、API 约定、责任人 | 随项目共享 |
+| 本机私有 | 临时机器说明和非共享配置引用 | 否 |
+
+真实密钥不应存放在任何一层的 Markdown 文档中。`.agents/local/` 被忽略，但仍不应当作长期密钥仓库。
+
+## 双 Agent、单一权威来源
+
+```text
+Human          -> README.md
+Codex          -> AGENTS.md -> .agents/index.md -> .agents/*
+Claude Code    -> CLAUDE.md imports AGENTS.md
+Claude skills  -> .claude/skills/* -> .agents/references/*
+Codex skills   -> .agents/skills/* -> .agents/references/*
+```
+
+详细规则只维护在 `.agents/`，工具专属入口只负责加载和少量工具差异，避免同一规则在多处漂移。
+
+## 内置 Skills
+
+| Skill | Codex | Claude Code | 用途 |
 | --- | --- | --- | --- |
-| Project bootstrap | `$project-bootstrap` | `/project-bootstrap` | Configure or merge the kit and verify project guidance |
-| API contract | `$api-contract` | `/api-contract` | Review producers, consumers, compatibility, migration, and verification |
+| 项目初始化 | `$project-bootstrap` | `/project-bootstrap` | 配置新项目、合并已有规则并验证项目资料 |
+| API 契约 | `$api-contract` | `/api-contract` | 检查生产者、消费者、兼容迁移和验证范围 |
 
-## Repository Map
-
-| Path | Purpose |
-| --- | --- |
-| `AGENTS.md` | Small, durable router for Codex and compatible agents |
-| `CLAUDE.md` | Claude Code entry point that imports shared guidance |
-| `.agents/project/` | Facts and commands the adopting project must complete |
-| `.agents/workflows/` | Review and delivery processes |
-| `.agents/runbooks/` | Safety gates for data, deployment, and rollback |
-| `.agents/templates/` | Reusable reports, decisions, and module registries |
-| `.agents/skills/` | Codex project skills |
-| `.claude/skills/` | Claude Code project skills |
-| `.agents/local/` | Ignored machine-local material; never a secret archive |
-| `examples/` | Fictional adoption examples |
-| `scripts/` | Offline validation, tests, and publication-readiness checks |
-
-## Safety Model
-
-The public kit must never contain real credentials, personal data, production dumps, private infrastructure, or target-specific deployment commands. Prefer a secret manager or environment injection for secrets. Keep operational facts in approved private systems and record only non-secret references here.
-
-Before publishing or changing the kit itself:
+## 本地验证
 
 ```sh
 ./scripts/validate.sh
 ./scripts/test.sh
 ```
 
-Local validation requires Bash, Python 3, and ripgrep (`rg`).
+本地验证依赖 Bash、Python 3 和 ripgrep（`rg`）。
 
-To reject private project identifiers during a clean-room migration, supply a private regular expression without committing it:
+公共模板自身故意保留项目资料占位符；从模板生成的实际项目必须让 `./scripts/validate-project-profile.sh` 通过，才能把 `.agents/project/` 当作权威事实。
 
-```sh
-EXTRA_DENY_PATTERN='<PRIVATE_PATTERN>' ./scripts/check-public-safety.sh
-```
+它会检查：
 
-The public kit intentionally contains project-profile placeholders. A generated application must make `./scripts/validate-project-profile.sh` pass before treating the profile as authoritative.
+- 必需文件和双端入口
+- skill 元数据、共享引用路径和 Codex/Claude 入口一致性
+- Markdown 相对链接
+- 个人绝对路径、手机号形态、IP、私钥和常见 token 前缀
+- 调用者通过 `EXTRA_DENY_PATTERN` 提供的额外禁用标识
+- `.agents/local/` 是否意外出现其他文件
 
-Also enable the hosting platform's secret scanning, push protection, protected default branch, and private vulnerability reporting.
+这些检查不能替代专业秘密扫描和人工 PII 审查。公开仓库后还应启用托管平台的 secret scanning 与 push protection。
 
-Before making the repository public, complete the [publishing checklist](docs/publishing.md). It deliberately requires real code owners and monitored private reporting routes; this template does not invent them.
+正式改为公开仓库前，必须完成 [公开发布检查清单](docs/publishing.md)。其中真实代码责任人、私密漏洞报告渠道和行为准则联络方式必须由维护者填写，本模板不会编造这些信息。
 
-After the maintainer configuration, initial commit, and private `origin` exist, run:
+完成维护者配置、初始提交和 private `origin` 后，再执行：
 
 ```sh
 python3 scripts/validate-publish-readiness.py
 ```
 
-This local gate does not replace verification of GitHub settings or remote CI.
+这个本地门禁不能代替 GitHub 设置和远程 CI 的人工复核。
 
-## Documentation
+## 开源维护
 
-- [Getting started](docs/getting-started.md)
-- [Existing-project adoption](docs/existing-project.md)
-- [Customization](docs/customization.md)
-- [Agent loading](docs/how-agents-load-rules.md)
-- [Upgrading](docs/upgrading.md)
-- [Distribution model](docs/distribution.md)
-- [Publishing checklist](docs/publishing.md)
-- [Single-repository example](examples/single-repo-webapp/README.md)
-- [Multi-application example](examples/multi-app-platform/README.md)
+- 变更记录见 [CHANGELOG.md](CHANGELOG.md)。
+- 升级方式见 [docs/upgrading.md](docs/upgrading.md)。
+- 分发方式见 [docs/distribution.md](docs/distribution.md)。
+- 中文公开发布门禁见 [docs/publishing.zh-CN.md](docs/publishing.zh-CN.md)。
+- 贡献规则见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+- 安全报告见 [SECURITY.md](SECURITY.md)。
+- 许可证见 [LICENSE](LICENSE)。
 
-## Contributing And Security
+## 示例
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing changes. Report security issues privately according to [SECURITY.md](SECURITY.md).
-
-Licensed under the [MIT License](LICENSE).
+- [单仓库 Web 应用资料示例](examples/single-repo-webapp/README.md)
+- [多应用平台资料示例](examples/multi-app-platform/README.md)
+- [已有项目增量接入示例](examples/existing-project-incremental/README.md)
