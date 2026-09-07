@@ -6,7 +6,7 @@ cd "$repo_root"
 
 required=(
   README.md
-  README.zh-CN.md
+  README.en.md
   LICENSE
   CHANGELOG.md
   CODE_OF_CONDUCT.md
@@ -57,6 +57,7 @@ required=(
   docs/publishing.zh-CN.md
   examples/single-repo-webapp/README.md
   examples/multi-app-platform/README.md
+  examples/existing-project-incremental/README.md
   scripts/validate.sh
   scripts/validate-structure.sh
   scripts/validate-links.py

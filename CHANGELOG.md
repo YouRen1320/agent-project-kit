@@ -2,6 +2,17 @@
 
 All notable changes are recorded here. Versions follow semantic versioning.
 
+## [未发布]
+
+### 变更
+
+- GitHub 默认 README 改为中文，英文说明保留在 `README.en.md`。
+- 新增采用场景速查和 Agent Memory Starter 对比，明确占位符不是产品承诺。
+
+### 新增
+
+- 已有项目增量接入示例，以及保留原规则并完成整套校验的回归测试。
+
 ## [0.1.0] - 2026-07-10
 
 ### Added
